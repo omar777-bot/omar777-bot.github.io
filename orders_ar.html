@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلباتي | مِرزّم</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700&family=Cinzel:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --navy: #0a1128; 
+            --gold: #c5a059;
+            --sage: #8f9f8b;
+            --bg-soft: #fdfbf7;
+        }
+
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            background-color: var(--bg-soft); 
+            color: var(--navy);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Luxury Typography */
+        h1, h2, h3, .serif, .font-serif-ar { font-family: 'Amiri', serif; }
+        .font-en { font-family: 'Cinzel', serif; }
+        .font-numbers { font-family: 'Montserrat', sans-serif; }
+
+        /* Subtle Background Zoom for Hero */
+        @keyframes subtleZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        .animate-hero { animation: subtleZoom 20s infinite alternate ease-in-out; }
+        
+        /* Elegant Gradient Overlay */
+        .hero-overlay { 
+            background: linear-gradient(180deg, rgba(10,17,40,0.4) 0%, rgba(10,17,40,0.8) 100%); 
+        }
+
+        /* Glassmorphism Nav */
+        .glass-nav {
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        /* Premium Buttons */
+        .btn-theme { 
+            background: linear-gradient(135deg, #c5a059 0%, #a67c33 100%);
+            color: white; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 10px 20px -5px rgba(197, 160, 89, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-theme.btn-en {
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .btn-theme::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); transition: all 0.75s;
+        }
+        .btn-theme:hover::after { left: 150%; }
+        .btn-theme:hover { 
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -5px rgba(197, 160, 89, 0.6);
+        }
+
+        /* Outline Gold Button */
+        .btn-outline {
+            border: 1px solid var(--gold);
+            color: var(--navy);
+            transition: all 0.3s ease;
+        }
+        .btn-outline.btn-en {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .btn-outline:hover {
+            background-color: var(--gold);
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(197, 160, 89, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-soft); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+        /* Order Status Highlight Styles */
+        .status-box { border: 1px solid #e5e7eb; background-color: #fdfbf7; color: #9ca3af; transition: all 0.3s ease; border-radius: 0.75rem; }
+        .status-box.active-confirmed { border-color: var(--gold); background-color: rgba(197, 160, 89, 0.1); color: var(--navy); font-weight: 600; }
+        .status-box.active-delivered { border-color: var(--sage); background-color: rgba(143, 159, 139, 0.15); color: var(--navy); font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased text-[#0a1128] min-h-screen flex flex-col justify-between">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-nav px-6 py-4 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-3xl font-bold tracking-[0.15em] text-[#0a1128] font-en">
+                MIRZAM<span class="text-[#c5a059]">.</span>
+            </div>
+            
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex space-x-8 space-x-reverse text-[14px] font-semibold items-center">
+                <a href="Mirzam's_Main_page_ar.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">الرئيسية</a>
+                <a href="collection_ar.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">النماذج</a>
+                <a href="pricing_ar.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">الأسعار</a>
+                <a href="order_ar.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">صمم دعوتك</a>
+                <a href="https://ig.me/m/mirzam.eg" target="_blank" class="text-[#0a1128] font-bold hover:text-[#c5a059] transition-colors duration-300">تواصل معنا</a>
+                
+                <div class="border-r border-[#c5a059]/30 pr-8 flex items-center space-x-6 space-x-reverse">
+                    <button onclick="toggleLanguage()" class="border border-[#c5a059]/50 rounded-full px-3 py-1 text-[#0a1128] font-bold text-[12px] uppercase tracking-widest hover:bg-[#c5a059] hover:text-white transition-all duration-300 flex items-center justify-center min-w-[45px] font-en">
+                        <span id="langLabelDesktop">EN</span>
+                    </button>
+                    <div id="navAuthContainer" class="flex items-center">
+                        <button id="openModalBtn" class="text-[#0a1128] font-bold hover:text-[#c5a059] transition-colors whitespace-nowrap flex items-center gap-2">
+                            <i class="fa-regular fa-user text-[#c5a059]"></i> تسجيل الدخول
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Controls -->
+            <div class="md:hidden flex items-center space-x-4 space-x-reverse pr-4">
+                <button onclick="toggleLanguage()" class="border border-[#c5a059]/50 rounded-full px-2.5 py-0.5 text-[#0a1128] font-bold text-[11px] uppercase tracking-widest hover:bg-[#c5a059] hover:text-white transition-all flex items-center justify-center min-w-[36px] font-en">
+                    <span id="langLabelMobile">EN</span>
+                </button>
+                <button id="mobileMenuBtn" class="text-[#0a1128] text-2xl focus:outline-none hover:text-[#c5a059] transition-colors">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden pt-6 pb-6 border-t border-[#c5a059]/20 mt-4 flex flex-col space-y-5 text-[15px] font-semibold text-center bg-[#fdfbf7]">
+            <a href="Mirzam's_Main_page_ar.html" class="text-[#0a1128] hover:text-[#c5a059]">الرئيسية</a>
+            <a href="collection_ar.html" class="text-[#0a1128] hover:text-[#c5a059]">النماذج</a>
+            <a href="pricing_ar.html" class="text-[#0a1128] hover:text-[#c5a059]">الأسعار</a>
+            <a href="order_ar.html" class="text-[#0a1128] hover:text-[#c5a059]">صمم دعوتك</a>
+            <a href="https://ig.me/m/mirzam.eg" target="_blank" class="text-[#0a1128] hover:text-[#c5a059]">تواصل معنا</a>
+            
+            <div class="pt-5 border-t border-[#c5a059]/20 flex items-center justify-center">
+                <div id="navAuthContainerMobile" class="flex items-center">
+                    <button id="openModalBtnMobile" class="text-[#0a1128] font-bold hover:text-[#c5a059] transition-colors whitespace-nowrap flex items-center gap-2">
+                        <i class="fa-regular fa-user text-[#c5a059]"></i> تسجيل الدخول
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-[55vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0 bg-[#0a1128]">
+            <img src="mainphoto.webp" alt="Mirzam Background" class="w-full h-full object-cover animate-hero opacity-80" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop'">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 text-white mt-12" data-aos="fade-up" data-aos-duration="1500">
+            <h1 class="text-5xl md:text-7xl mb-4 font-serif-ar tracking-tight drop-shadow-2xl">طلباتي</h1>
+            <div class="w-24 h-[1px] bg-[#c5a059] mx-auto mb-6"></div>
+            <p class="text-sm md:text-base font-light text-[#dfc282] font-tajawal">
+                دعواتك وحالة الطلب
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-6 pb-32 flex-grow relative z-10 -mt-16" data-aos="fade-up" data-aos-duration="1200">
+        
+        <!-- Logged Out View -->
+        <div id="loggedOutView" class="hidden text-center py-20 bg-white border border-[#c5a059]/20 shadow-2xl rounded-3xl p-8 md:p-14 space-y-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-[#c5a059] opacity-10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+            
+            <div class="w-20 h-20 bg-[#0a1128] text-[#c5a059] rounded-full flex items-center justify-center mx-auto text-3xl shadow-lg"><i class="fa-solid fa-lock"></i></div>
+            <h2 class="text-3xl font-serif-ar text-[#0a1128]">يرجى تسجيل الدخول لعرض طلباتك</h2>
+            <p class="text-sm font-light text-gray-500 max-w-md mx-auto leading-relaxed">ادخل إلى لوحة التحكم الخاصة بك لمتابعة حالة طلباتك، الروابط النهائية، وتحديثات الحفل.</p>
+            <button onclick="openModal()" class="btn-theme px-12 py-4 rounded-full mt-6 inline-block text-sm font-bold shadow-xl">تسجيل الدخول الآن</button>
+        </div>
+
+        <!-- Logged In View -->
+        <div id="loggedInView" class="hidden space-y-8">
+            
+            <!-- User Info Card -->
+            <div class="bg-white p-8 md:p-10 border border-[#c5a059]/20 shadow-xl rounded-3xl flex flex-col md:flex-row justify-between items-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-[#c5a059] opacity-10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 z-0"></div>
+                
+                <div class="relative z-10 text-center md:text-right">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-[#c5a059] font-bold block mb-2 font-en">Account Holder</span>
+                    <h3 id="userDisplayName" class="text-3xl font-serif-ar text-[#0a1128]">اسم المستخدم</h3>
+                    <p id="userDisplayEmail" class="text-sm text-gray-500 mt-2 font-numbers" dir="ltr"></p>
+                </div>
+                <div class="mt-6 md:mt-0 relative z-10">
+                    <a href="order_ar.html" class="btn-theme px-8 py-4 rounded-full text-[12px] font-bold shadow-lg inline-block text-center">+ صمم دعوة جديدة</a>
+                </div>
+            </div>
+
+            <!-- Orders Container -->
+            <div class="bg-white p-8 md:p-12 border border-[#c5a059]/20 shadow-2xl rounded-3xl space-y-8">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-100 pb-6 gap-6">
+                    <h3 class="text-2xl font-serif-ar text-[#0a1128]" id="orderListTitle">الطلبات المضافة مؤخراً</h3>
+                    
+                    <!-- Admin Sorting Filters -->
+                    <div id="adminFilters" class="hidden flex flex-wrap gap-2">
+                        <button data-filter="All" onclick="setFilter('All')" class="filter-btn bg-[#c5a059] text-white px-4 py-2 text-[10px] font-bold rounded-full shadow-md">الكل</button>
+                        <button data-filter="Pending" onclick="setFilter('Pending')" class="filter-btn bg-gray-50 border border-gray-200 text-gray-700 px-4 py-2 text-[10px] font-bold rounded-full hover:bg-gray-100 transition-colors">قيد المراجعة</button>
+                        <button data-filter="Confirmed" onclick="setFilter('Confirmed')" class="filter-btn bg-gray-50 border border-gray-200 text-gray-700 px-4 py-2 text-[10px] font-bold rounded-full hover:bg-gray-100 transition-colors">مؤكد</button>
+                        <button data-filter="Delivered" onclick="setFilter('Delivered')" class="filter-btn bg-gray-50 border border-gray-200 text-gray-700 px-4 py-2 text-[10px] font-bold rounded-full hover:bg-gray-100 transition-colors">تم التسليم</button>
+                        <button data-filter="Cancelled" onclick="setFilter('Cancelled')" class="filter-btn bg-gray-50 border border-gray-200 text-gray-700 px-4 py-2 text-[10px] font-bold rounded-full hover:bg-gray-100 transition-colors">ملغى</button>
+                    </div>
+                </div>
+
+                <div id="ordersContainer" class="space-y-8">
+                    <!-- Loading Spinner -->
+                    <div class="text-center py-12"><i class="fa-solid fa-spinner fa-spin text-4xl text-[#c5a059]"></i></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-[#0a1128] text-center border-t border-[#c5a059]/20 relative mt-auto">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-3xl font-bold tracking-[0.15em] text-white font-en mb-8 opacity-90">
+                MIRZAM<span class="text-[#c5a059]">.</span>
+            </div>
+            
+            <div class="mb-8 flex flex-wrap justify-center items-center gap-8 text-[14px] text-gray-400">
+                <a href="privacy_ar.html" class="hover:text-[#c5a059] transition-colors">سياسة الخصوصية</a>
+                <a href="terms-of-use_ar.html" class="hover:text-[#c5a059] transition-colors">شروط الاستخدام</a>
+                <a href="refund-policy_ar.html" class="hover:text-[#c5a059] transition-colors">سياسة الاسترجاع</a>
+            </div>
+            
+            <div class="w-24 h-[1px] bg-[#c5a059]/30 mx-auto mb-8"></div>
+            
+            <div class="text-[11px] tracking-[0.3em] text-gray-500 font-bold font-en">
+                © 2026 MIRZAM EGYPT. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 bg-[#0a1128]/90 backdrop-blur-md z-[100] hidden items-center justify-center p-4 text-right transition-opacity">
+        <div class="bg-[#fdfbf7] p-8 md:p-12 max-w-md w-full relative rounded-3xl shadow-2xl overflow-hidden border border-[#c5a059]/30">
+            <div class="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#c5a059] rounded-tr-3xl m-2 opacity-50"></div>
+            <div class="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#c5a059] rounded-bl-3xl m-2 opacity-50"></div>
+            
+            <button id="closeModalBtn" class="absolute top-5 left-5 text-gray-400 hover:text-[#0a1128] transition-colors bg-white w-8 h-8 rounded-full flex items-center justify-center shadow-sm hover:shadow-md z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center mb-8 relative z-10">
+                <h3 class="text-2xl font-serif-ar text-[#0a1128] mb-2">مرحباً بك في مِرزّم</h3>
+                <p class="text-gray-500 text-sm font-tajawal">سجل دخولك لمتابعة دعواتك</p>
+            </div>
+            
+            <div class="flex items-center justify-center space-x-6 space-x-reverse mb-8 text-[15px] font-bold border-b border-gray-200 relative z-10">
+                <button id="switchToSignIn" class="text-gray-400 hover:text-[#0a1128] pb-3 px-2 transition-colors">تسجيل الدخول</button>
+                <button id="switchToSignUp" class="text-[#c5a059] border-b-2 border-[#c5a059] pb-3 px-2">إنشاء حساب</button>
+            </div>
+
+            <form id="authForm" class="space-y-5 relative z-10">
+                <div id="nameFieldContainer">
+                    <input type="text" id="userName" placeholder="الاسم الشخصي" class="w-full border-b border-gray-300 px-4 py-3 text-[15px] focus:outline-none focus:border-[#c5a059] focus:bg-white bg-[#fdfbf7] transition-all text-[#0a1128] placeholder-gray-400 rounded-t-md">
+                </div>
+                <div>
+                    <input type="text" id="userIdentifier" placeholder="رقم الهاتف أو البريد الإلكتروني" required class="w-full border-b border-gray-300 px-4 py-3 text-[15px] focus:outline-none focus:border-[#c5a059] focus:bg-white bg-[#fdfbf7] transition-all text-[#0a1128] placeholder-gray-400 rounded-t-md">
+                </div>
+                <div>
+                    <input type="password" id="userPassword" placeholder="كلمة المرور (٦ أحرف على الأقل)" required class="w-full border-b border-gray-300 px-4 py-3 text-[15px] focus:outline-none focus:border-[#c5a059] focus:bg-white bg-[#fdfbf7] transition-all text-[#0a1128] placeholder-gray-400 rounded-t-md">
+                </div>
+                <button type="submit" id="authSubmitBtn" class="w-full btn-theme text-white py-4 rounded-md text-[15px] font-bold mt-6 shadow-lg">
+                    إنشاء حساب
+                </button>
+            </form>
+            <div id="statusMessage" class="text-center mt-6 text-sm font-bold tracking-wide relative z-10"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50 });
+    </script>
+
+    <!-- Firebase Firestore logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDHytukMX1bCkh-BpumQhWmZWEnmprAIno",
+            authDomain: "mirzam-login.firebaseapp.com",
+            projectId: "mirzam-login",
+            storageBucket: "mirzam-login.firebasestorage.app",
+            messagingSenderId: "264081997957",
+            appId: "1:264081997957:web:e5a006e0e4a50cf5a4a9ec",
+            measurementId: "G-8RS45VMDDQ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let globalOrders = [];
+        let currentFilter = 'All';
+        let isAdminGlobal = false;
+
+        window.copyToClipboard = function(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("تم نسخ الرابط بنجاح!");
+            }).catch(err => {
+                console.error("Failed to copy link: ", err);
+            });
+        };
+
+        window.changeFirebaseStatus = async function(docId, newStatus) {
+            try {
+                await updateDoc(doc(db, "orders", docId), { status: newStatus });
+                const orderIndex = globalOrders.findIndex(o => o.id === docId);
+                if(orderIndex !== -1) globalOrders[orderIndex].status = newStatus;
+                renderOrdersUI();
+            } catch (e) {
+                console.error(e);
+                alert("فشل تحديث الحالة.");
+            }
+        };
+
+        window.deleteOrder = async function(docId) {
+            const confirmed = confirm("هل أنت متأكد من أنك تريد حذف هذا الطلب نهائياً؟ لا يمكن التراجع عن هذا الإجراء.");
+            if (!confirmed) return;
+            
+            try {
+                await deleteDoc(doc(db, "orders", docId));
+                globalOrders = globalOrders.filter(o => o.id !== docId);
+                alert("تم حذف الطلب بنجاح.");
+                renderOrdersUI();
+            } catch (e) {
+                console.error(e);
+                alert("فشل حذف الطلب.");
+            }
+        };
+
+        window.saveLinks = async function(docId) {
+            const invLink = document.getElementById(`invLink_${docId}`).value.trim();
+            const admLink = document.getElementById(`admLink_${docId}`).value.trim();
+            try {
+                await updateDoc(doc(db, "orders", docId), {
+                    invitationLink: invLink,
+                    adminLink: admLink
+                });
+                const orderIndex = globalOrders.findIndex(o => o.id === docId);
+                if(orderIndex !== -1) {
+                    globalOrders[orderIndex].invitationLink = invLink;
+                    globalOrders[orderIndex].adminLink = admLink;
+                }
+                alert('تم حفظ الروابط ونشرها للعميل بنجاح!');
+                renderOrdersUI();
+            } catch(e) {
+                console.error(e);
+                alert("فشل حفظ الروابط.");
+            }
+        };
+
+        window.setFilter = function(filterStatus) {
+            currentFilter = filterStatus;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === filterStatus) {
+                    btn.className = "filter-btn bg-[#c5a059] text-white px-4 py-2 text-[10px] font-bold rounded-full shadow-md";
+                } else {
+                    btn.className = "filter-btn bg-gray-50 border border-gray-200 text-gray-700 px-4 py-2 text-[10px] font-bold rounded-full hover:bg-gray-100 transition-colors";
+                }
+            });
+            renderOrdersUI();
+        };
+
+        async function fetchOrders(user) {
+            const container = document.getElementById('ordersContainer');
+            container.innerHTML = '<div class="text-center py-12"><i class="fa-solid fa-spinner fa-spin text-4xl text-[#c5a059]"></i></div>';
+            
+            isAdminGlobal = user.email === 'mirzaminvitationcards@gmail.com'; 
+            
+            if(isAdminGlobal) { 
+                document.getElementById('orderListTitle').innerText = 'Admin View: All Customer Orders';
+                document.getElementById('adminFilters').classList.remove('hidden');
+            }
+
+            try {
+                let q;
+                if (isAdminGlobal) {
+                    q = query(collection(db, "orders")); 
+                } else {
+                    q = query(collection(db, "orders"), where("userEmail", "==", user.email)); 
+                }
+
+                const querySnapshot = await getDocs(q);
+                globalOrders = [];
+
+                querySnapshot.forEach((docSnap) => {
+                    globalOrders.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                globalOrders.sort((a, b) => {
+                    const timeA = a.timestamp ? a.timestamp.seconds : 0;
+                    const timeB = b.timestamp ? b.timestamp.seconds : 0;
+                    return timeB - timeA;
+                });
+
+                renderOrdersUI();
+
+            } catch (e) {
+                console.error("Error fetching orders:", e);
+                container.innerHTML = '<p class="text-red-500 text-sm text-center">خطأ في جلب البيانات. يرجى التحقق من اتصالك.</p>';
+            }
+        }
+
+        function renderOrdersUI() {
+            const container = document.getElementById('ordersContainer');
+            container.innerHTML = '';
+
+            let filteredOrders = globalOrders;
+            if (currentFilter !== 'All') {
+                filteredOrders = globalOrders.filter(o => {
+                    let status = o.status || 'Pending';
+                    return status === currentFilter;
+                });
+            }
+
+            if (filteredOrders.length === 0) {
+                const noOrdersMessage = currentFilter === 'All' ? 'لم يتم العثور على طلبات.' : 'لا توجد طلبات بهذه الحالة.';
+                container.innerHTML = `
+                    <div class="text-center py-12 bg-[#fdfbf7] border border-[#c5a059]/10 rounded-2xl space-y-3">
+                        <p class="text-sm text-gray-500 font-bold">${noOrdersMessage}</p>
+                    </div>`;
+                return;
+            }
+
+            filteredOrders.forEach((order) => {
+                const currentStatus = order.status || 'Pending';
+                const isCancelled = currentStatus === 'Cancelled';
+                const isConfirmed = currentStatus === 'Confirmed' || currentStatus === 'Delivered';
+                const isDelivered = currentStatus === 'Delivered';
+                const statusColorClass = isCancelled ? 'text-red-500' : 'text-[#c5a059]';
+                
+                let statusArabic = 'قيد المراجعة';
+                if(currentStatus === 'Confirmed') statusArabic = 'مؤكد';
+                if(currentStatus === 'Delivered') statusArabic = 'تم التسليم';
+                if(currentStatus === 'Cancelled') statusArabic = 'ملغى';
+
+                const eventArabic = order.eventType === 'Wedding' ? 'زفاف' : (order.eventType === 'Engagement' ? 'خطوبة' : order.eventType);
+                let planArabic = order.plan;
+                if(planArabic === 'Aurora') planArabic = 'أورورا';
+                if(planArabic === 'Astra') planArabic = 'أسترا';
+                if(planArabic === 'Free Trial') planArabic = 'تجربة مجانية';
+                
+                let designArabic = order.design;
+                if(designArabic === 'The Mirzam Night') designArabic = 'ليالي مرزم';
+                if(designArabic === 'The Midnight') designArabic = 'منتصف الليل';
+                if(designArabic === 'The Modern Minimalist') designArabic = 'البساطة العصرية';
+
+                let scheduleHTML = '';
+                if (order.schedule && order.schedule.length > 0) {
+                    scheduleHTML = `<div class="col-span-1 md:col-span-2 mt-4"><strong class="text-[#0a1128] block mb-2 text-[10px] font-bold border-b border-gray-100 pb-1">جدول اليوم</strong><ul class="list-none space-y-2 mt-2">`;
+                    order.schedule.forEach(item => {
+                        scheduleHTML += `<li class="flex gap-2"><span class="font-numbers text-[#c5a059] font-bold min-w-[80px]" dir="ltr">${item.split(' - ')[0]}</span> <span class="text-gray-600">${item.split(' - ')[1]}</span></li>`;
+                    });
+                    scheduleHTML += `</ul></div>`;
+                }
+
+                let wordingHTML = '';
+                if ((order.wordingTop && order.wordingTop !== 'none') || (order.wordingMiddle && order.wordingMiddle !== 'none') || (order.wordingBottom && order.wordingBottom !== 'none')) {
+                    wordingHTML = `<div class="col-span-1 md:col-span-2 mt-4"><strong class="text-[#0a1128] block mb-2 text-[10px] font-bold border-b border-gray-100 pb-1">النص المخصص</strong><div class="space-y-1.5 mt-2">`;
+                    if(order.wordingTop && order.wordingTop !== 'none') wordingHTML += `<div><span class="text-[#c5a059] font-bold text-[10px] w-16 inline-block">العلوي:</span> <span class="text-gray-600 italic">"${order.wordingTop}"</span></div>`;
+                    if(order.wordingMiddle && order.wordingMiddle !== 'none') wordingHTML += `<div><span class="text-[#c5a059] font-bold text-[10px] w-16 inline-block">الأوسط:</span> <span class="text-gray-600 italic">"${order.wordingMiddle}"</span></div>`;
+                    if(order.wordingBottom && order.wordingBottom !== 'none') wordingHTML += `<div><span class="text-[#c5a059] font-bold text-[10px] w-16 inline-block">السفلي:</span> <span class="text-gray-600 italic">"${order.wordingBottom}"</span></div>`;
+                    wordingHTML += `</div></div>`;
+                }
+
+                const detailsGrid = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-[13px] text-gray-700 mt-6 p-6 bg-gray-50 border border-gray-100 rounded-xl shadow-inner">
+                        <div><strong class="text-[#0a1128] block text-[10px] mb-0.5">الباقة</strong> ${planArabic || '-'}</div>
+                        <div><strong class="text-[#0a1128] block text-[10px] mb-0.5">العروسين</strong> ${order.partner1 || '-'} و ${order.partner2 || '-'}</div>
+                        <div><strong class="text-[#0a1128] block text-[10px] mb-0.5">تاريخ ووقت الحفل</strong> <span class="font-numbers">${order.eventDate || '-'} ${order.eventTime && order.eventTime !== 'none' ? `الساعة ${order.eventTime}` : ''}</span></div>
+                        
+                        <div><strong class="text-[#0a1128] block text-[10px] mb-0.5">القاعة</strong> ${order.venueName || '-'}</div>
+                        ${order.venueLocation && order.venueLocation !== 'none' ? `
+                        <div><strong class="text-[#0a1128] block text-[10px] mb-0.5">العنوان</strong> ${order.venueLocation} 
+                            ${order.venueMap && order.venueMap !== 'none' ? `<a href="${order.venueMap}" target="_blank" class="text-[#c5a059] font-bold hover:text-[#0a1128] mr-2 transition-colors"><i class="fa-solid fa-map-location-dot"></i> الخريطة</a>` : ''}
+                        </div>` : ''}
+                        
+                        ${order.isSecretLocation === 'Yes' ? `
+                        <div><strong class="text-[#0a1128] block text-[10px] mb-0.5">موقع سري</strong> نعم 
+                            ${order.secretLocationMap && order.secretLocationMap !== 'none' ? `<a href="${order.secretLocationMap}" target="_blank" class="text-[#c5a059] font-bold hover:text-[#0a1128] mr-2 transition-colors"><i class="fa-solid fa-map-location-dot"></i> الخريطة</a>` : ''}
+                        </div>` : ''}
+
+                        ${order.whatsappNumber && order.whatsappNumber !== 'none' ? `<div><strong class="text-[#0a1128] block text-[10px] mb-0.5">واتساب</strong> <span class="font-numbers" dir="ltr">${order.whatsappNumber}</span> ${order.whatsappName && order.whatsappName !== 'none' ? `(${order.whatsappName})` : ''}</div>` : ''}
+                        ${order.musicPref && order.musicPref !== 'none' ? `<div><strong class="text-[#0a1128] block text-[10px] mb-0.5">الموسيقى</strong> ${order.musicPref === 'Yes' ? 'نعم' : 'لا'} ${order.musicChoice && order.musicChoice !== 'none' ? `<br><span class="text-gray-500 italic mt-0.5 inline-block">${order.musicChoice}</span>` : ''}</div>` : ''}
+                        ${order.photoPref && order.photoPref !== 'none' ? `<div><strong class="text-[#0a1128] block text-[10px] mb-0.5">تتضمن صورة</strong> ${order.photoPref === 'Yes' ? 'نعم' : 'لا'}</div>` : ''}
+                        ${order.colorCode && order.colorCode !== 'none' ? `<div><strong class="text-[#0a1128] block text-[10px] mb-0.5">قواعد الملابس</strong> <span class="font-numbers">${order.colorCode}</span></div>` : ''}
+                        ${order.guestPhotoGallery === 'Yes' ? `<div><strong class="text-[#0a1128] block text-[10px] mb-0.5">معرض الضيوف</strong> نعم</div>` : ''}
+                        ${order.voiceMessages === 'Yes' ? `<div><strong class="text-[#0a1128] block text-[10px] mb-0.5">الرسائل الصوتية</strong> نعم</div>` : ''}
+                        
+                        ${scheduleHTML}
+                        ${wordingHTML}
+
+                        ${order.customerComments && order.customerComments !== 'none' ? `<div class="col-span-1 md:col-span-2 mt-2"><strong class="text-[#0a1128] block mb-2 text-[10px] font-bold border-b border-gray-100 pb-1">ملاحظات إضافية</strong><p class="text-gray-600 bg-white p-4 border border-[#c5a059]/20 rounded-lg italic text-sm mt-2">${order.customerComments}</p></div>` : ''}
+                    </div>
+                `;
+
+                let adminUI = '';
+                let customerUI = '';
+
+                if (order.invitationLink || order.adminLink) {
+                    customerUI += `
+                    <div class="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row gap-4">
+                        ${order.invitationLink ? `
+                        <div class="flex-1 flex shadow-lg rounded-xl overflow-hidden group flex-row-reverse">
+                            <a href="${order.invitationLink}" target="_blank" class="flex-grow btn-theme text-center py-4 px-4 text-[12px] font-bold flex items-center justify-center rounded-none"><i class="fa-solid fa-link ml-3"></i> عرض الدعوة</a>
+                            <button onclick="copyToClipboard('${order.invitationLink}')" class="bg-[#0a1128] text-white px-6 hover:bg-[#c5a059] transition-colors border-r border-white/20 flex items-center justify-center" title="نسخ الرابط"><i class="fa-regular fa-copy text-lg"></i></button>
+                        </div>` : ''}
+                        ${order.adminLink ? `<a href="${order.adminLink}" target="_blank" class="flex-1 border-2 border-[#0a1128] text-[#0a1128] text-center py-4 px-4 text-[12px] font-bold hover:bg-[#0a1128] hover:text-white transition-colors shadow-sm rounded-xl flex items-center justify-center"><i class="fa-solid fa-key ml-3"></i> إدارة الدعوة</a>` : ''}
+                    </div>`;
+
+                    if (order.adminLink && !isAdminGlobal) {
+                        customerUI += `
+                        <div class="mt-6 bg-red-50 border border-red-200 p-5 text-center rounded-xl shadow-sm">
+                            <p class="text-xs text-red-600 font-bold leading-relaxed">
+                                <i class="fa-solid fa-triangle-exclamation ml-2 text-red-600 text-lg"></i><br class="md:hidden"> هام: عند تأكيد طلبك، لا تشارك رابط "إدارة الدعوة" مع ضيوفك.
+                            </p>
+                        </div>`;
+                    }
+                }
+
+                if (isAdminGlobal) {
+                    adminUI = `
+                    <div class="mt-8 p-6 border-2 border-red-200 bg-red-50/50 rounded-xl">
+                        <p class="text-xs font-bold uppercase tracking-widest mb-4 text-red-800 border-b border-red-200 pb-2 font-en">Admin Control Panel</p>
+                        
+                        <div class="grid grid-cols-2 gap-3 mb-6">
+                            <button onclick="changeFirebaseStatus('${order.id}', 'Pending')" class="w-full bg-gray-300 py-3 text-[10px] uppercase font-bold text-gray-800 hover:bg-gray-400 transition-colors rounded-lg shadow-sm font-en">Set Pending</button>
+                            <button onclick="changeFirebaseStatus('${order.id}', 'Confirmed')" class="w-full bg-[#c5a059] py-3 text-[10px] uppercase font-bold text-white hover:bg-[#a68444] transition-colors rounded-lg shadow-sm font-en">Set Confirmed</button>
+                            <button onclick="changeFirebaseStatus('${order.id}', 'Delivered')" class="w-full bg-[#8f9f8b] py-3 text-[10px] uppercase font-bold text-white hover:bg-[#778673] transition-colors rounded-lg shadow-sm font-en">Set Delivered</button>
+                            <button onclick="changeFirebaseStatus('${order.id}', 'Cancelled')" class="w-full bg-red-500 py-3 text-[10px] uppercase font-bold text-white hover:bg-red-600 transition-colors rounded-lg shadow-sm font-en">Cancel Order</button>
+                            <button onclick="deleteOrder('${order.id}')" class="col-span-2 w-full bg-[#0a1128] py-3 text-[10px] uppercase font-bold text-white hover:bg-black transition-colors rounded-lg mt-2 shadow-sm font-en"><i class="fa-solid fa-trash-can ml-2"></i> Delete Order Permanently</button>
+                        </div>
+                        
+                        <div class="pt-6 border-t border-red-200">
+                            <p class="text-xs font-bold uppercase tracking-widest mb-4 text-red-800 font-en">Assign Invitation Links</p>
+                            <div class="space-y-3 mb-4">
+                                <input type="url" id="invLink_${order.id}" class="w-full border border-red-200 bg-white px-4 py-3 text-sm focus:outline-none focus:border-[#c5a059] rounded-lg shadow-sm text-left font-en" dir="ltr" placeholder="Guest Invitation Link (URL)" value="${order.invitationLink || ''}">
+                                <input type="url" id="admLink_${order.id}" class="w-full border border-red-200 bg-white px-4 py-3 text-sm focus:outline-none focus:border-[#c5a059] rounded-lg shadow-sm text-left font-en" dir="ltr" placeholder="Admin Powers Link (URL)" value="${order.adminLink || ''}">
+                            </div>
+                            <button onclick="saveLinks('${order.id}')" class="bg-gray-800 text-white px-6 py-4 text-[11px] uppercase tracking-widest font-bold hover:bg-black transition-all w-full shadow-lg rounded-lg font-en">Save Links & Publish to Customer</button>
+                        </div>
+                    </div>`;
+                } else {
+                    if (!isCancelled && !isDelivered) {
+                        customerUI += `
+                        <div class="mt-6 pt-6 border-t border-gray-100 flex justify-end">
+                            <a href="https://ig.me/m/mirzam.eg" target="_blank" class="text-[13px] text-gray-400 hover:text-red-500 font-bold transition-colors flex items-center">
+                                <i class="fa-brands fa-instagram ml-2 text-base"></i> هل تحتاج إلى الإلغاء؟ تواصل معنا
+                            </a>
+                        </div>`;
+                    } else if (isCancelled) {
+                        customerUI += `
+                        <div class="mt-6 pt-6 border-t border-gray-100 flex justify-end">
+                            <span class="text-[13px] text-red-500 font-bold flex items-center">
+                                <i class="fa-solid fa-ban ml-2"></i> تم إلغاء الطلب
+                            </span>
+                        </div>`;
+                    }
+                }
+
+                const card = document.createElement('div');
+                card.className = 'p-8 md:p-10 bg-white border border-[#c5a059]/20 shadow-lg hover:shadow-2xl hover:-translate-y-2 rounded-3xl space-y-6 transition-all duration-500 relative group overflow-hidden';
+                card.innerHTML = `
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-[#c5a059] opacity-5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 z-0"></div>
+                    
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-gray-100 relative z-10">
+                        <div>
+                            <span class="text-[10px] font-bold ${statusColorClass}">الحالة: ${statusArabic}</span>
+                            <h4 class="text-3xl font-serif-ar mt-2 text-[#0a1128]">${eventArabic} — ${designArabic}</h4>
+                            ${isAdminGlobal ? `<p class="text-[11px] text-gray-400 mt-2 font-bold font-numbers tracking-wide">Customer: ${order.userEmail}</p>` : ''}
+                        </div>
+                        <div class="mt-6 md:mt-0 text-right md:text-left bg-gray-50 px-5 py-3 rounded-xl border border-gray-100">
+                            <span class="text-[9px] text-gray-400 block mb-1">رقم الطلب الإشاري</span>
+                            <span class="text-sm font-bold text-[#c5a059] font-numbers tracking-wider">${order.requestId}</span>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10">
+                        ${detailsGrid}
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 pt-4 relative z-10">
+                        <div class="status-box ${isConfirmed && !isCancelled ? 'active-confirmed' : ''} p-5 text-center flex flex-col items-center justify-center shadow-sm">
+                            <i class="fa-solid fa-circle-check mb-2 text-xl"></i>
+                            <p class="text-[10px] font-bold mt-1">مؤكد</p>
+                        </div>
+                        <div class="status-box ${isDelivered && !isCancelled ? 'active-delivered' : ''} p-5 text-center flex flex-col items-center justify-center shadow-sm">
+                            <i class="fa-solid fa-box-open mb-2 text-xl"></i>
+                            <p class="text-[10px] font-bold mt-1">تم التسليم</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 text-left relative z-10">
+                        <span class="text-[10px] text-gray-400 italic font-numbers">تم الإرسال في: ${order.submittedAt}</span>
+                    </div>
+
+                    <div class="relative z-10">
+                        ${customerUI}
+                        ${adminUI}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        /* ==== AUTHENTICATION LOGIC ==== */
+        let isSignUpMode = true;
+        const authModal = document.getElementById('authModal');
+        const authForm = document.getElementById('authForm');
+        const statusMessage = document.getElementById('statusMessage');
+        const nameFieldContainer = document.getElementById('nameFieldContainer');
+
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => { 
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden'); 
+            const icon = document.getElementById('mobileMenuBtn').querySelector('i');
+            if(mobileMenu.classList.contains('hidden')){
+                icon.className = 'fa-solid fa-bars-staggered';
+            } else {
+                icon.className = 'fa-solid fa-xmark';
+            }
+        });
+        
+        document.getElementById('switchToSignIn').addEventListener('click', () => {
+            isSignUpMode = false;
+            document.getElementById('switchToSignIn').className = "text-[#c5a059] border-b-2 border-[#c5a059] pb-3 px-2 font-bold transition-all";
+            document.getElementById('switchToSignUp').className = "text-gray-400 hover:text-[#0a1128] pb-3 px-2 font-normal transition-all";
+            nameFieldContainer.style.display = 'none';
+            document.getElementById('authSubmitBtn').innerText = 'تسجيل الدخول';
+            statusMessage.innerText = '';
+        });
+
+        document.getElementById('switchToSignUp').addEventListener('click', () => {
+            isSignUpMode = true;
+            document.getElementById('switchToSignUp').className = "text-[#c5a059] border-b-2 border-[#c5a059] pb-3 px-2 font-bold transition-all";
+            document.getElementById('switchToSignIn').className = "text-gray-400 hover:text-[#0a1128] pb-3 px-2 font-normal transition-all";
+            nameFieldContainer.style.display = 'block';
+            document.getElementById('authSubmitBtn').innerText = 'إنشاء حساب';
+            statusMessage.innerText = '';
+        });
+
+        window.openModal = () => { 
+            authModal.style.display = 'flex'; 
+            setTimeout(() => { authModal.classList.add('opacity-100'); }, 10);
+            statusMessage.innerText = ''; 
+            document.getElementById('mobileMenu').classList.add('hidden'); 
+            document.getElementById('mobileMenuBtn').querySelector('i').className = 'fa-solid fa-bars-staggered';
+        };
+        
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            authModal.style.display = 'none';
+        });
+
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let identifier = document.getElementById('userIdentifier').value.trim();
+            const password = document.getElementById('userPassword').value;
+            const name = document.getElementById('userName').value.trim();
+
+            let firebaseIdentifier = identifier;
+            if (!identifier.includes('@')) {
+                const cleanPhone = identifier.replace(/[\s-]/g, '');
+                firebaseIdentifier = cleanPhone + "@mirzam.auth";
+            }
+
+            const authSubmitBtn = document.getElementById('authSubmitBtn');
+            const originalBtnText = authSubmitBtn.innerText;
+            authSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري التحميل...';
+            authSubmitBtn.disabled = true;
+
+            if (isSignUpMode) {
+                if (name === "") { 
+                    statusMessage.innerText = "يرجى إدخال اسمك."; 
+                    statusMessage.className = "text-center mt-6 text-sm font-bold text-red-500 relative z-10"; 
+                    resetBtn();
+                    return; 
+                }
+                createUserWithEmailAndPassword(auth, firebaseIdentifier, password)
+                    .then((userCredential) => {
+                        if (name) { updateProfile(userCredential.user, { displayName: name }).then(() => { updateNavigationBar(userCredential.user, name); }); } 
+                        else { updateNavigationBar(userCredential.user); }
+                        authModal.style.display = 'none';
+                        resetBtn();
+                    }).catch((error) => {
+                        statusMessage.innerText = error.message; 
+                        statusMessage.className = "text-center mt-6 text-sm font-bold text-red-500 relative z-10";
+                        resetBtn();
+                    });
+            } else {
+                signInWithEmailAndPassword(auth, firebaseIdentifier, password)
+                    .then(() => { authModal.style.display = 'none'; resetBtn(); })
+                    .catch(() => {
+                        statusMessage.innerText = "بيانات تسجيل الدخول غير صحيحة."; 
+                        statusMessage.className = "text-center mt-6 text-sm font-bold text-red-500 relative z-10";
+                        resetBtn();
+                    });
+            }
+
+            function resetBtn() {
+                authSubmitBtn.innerText = originalBtnText;
+                authSubmitBtn.disabled = false;
+            }
+        });
+
+        function updateNavigationBar(user, manualName = null) {
+            const displayName = manualName || user.displayName || user.email.split('@')[0];
+            const userHtml = `
+                <div class="flex items-center space-x-3 space-x-reverse whitespace-nowrap bg-white py-1 px-3 rounded-full border border-gray-200 shadow-sm">
+                    <div class="w-7 h-7 rounded-full bg-[#0a1128] text-[#c5a059] flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <span class="text-[#0a1128] font-bold text-xs truncate max-w-[100px]" title="${displayName}">أهلاً، ${displayName}</span>
+                    <div class="h-4 w-[1px] bg-gray-300 mx-2"></div>
+                    <a href="orders_ar.html" class="text-[#c5a059] hover:text-[#0a1128] text-[12px] font-bold transition-colors">طلباتي</a>
+                    <button class="logoutBtn text-gray-400 hover:text-red-500 transition-colors mr-2 ml-1" title="تسجيل الخروج"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                </div>`;
+            document.getElementById('navAuthContainer').innerHTML = userHtml;
+            document.getElementById('navAuthContainerMobile').innerHTML = userHtml;
+
+            document.querySelectorAll('.logoutBtn').forEach(btn => { 
+                btn.addEventListener('click', () => signOut(auth)); 
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('loggedOutView').classList.add('hidden');
+                document.getElementById('loggedInView').classList.remove('hidden');
+                
+                const displayName = user.displayName || user.email.split('@')[0];
+                document.getElementById('userDisplayName').innerText = displayName;
+                document.getElementById('userDisplayEmail').innerText = user.email.includes('@mirzam.auth') ? '' : user.email;
+
+                fetchOrders(user);
+                updateNavigationBar(user);
+            } else {
+                document.getElementById('loggedInView').classList.add('hidden');
+                document.getElementById('loggedOutView').classList.remove('hidden');
+                
+                const loginHtml = `<button class="openModalBtnDynamic text-[#0a1128] font-bold hover:text-[#c5a059] transition-colors whitespace-nowrap flex items-center gap-2"><i class="fa-regular fa-user text-[#c5a059]"></i> تسجيل الدخول</button>`;
+                document.getElementById('navAuthContainer').innerHTML = loginHtml;
+                document.getElementById('navAuthContainerMobile').innerHTML = loginHtml;
+                
+                document.querySelectorAll('.openModalBtnDynamic').forEach(btn => { 
+                    btn.addEventListener('click', window.openModal); 
+                });
+            }
+        });
+    </script>
+    <!-- Language Toggle & Position Restore Logic -->
+    <script>
+        function toggleLanguage() {
+            // 1. حفظ مكان النزول الحالي
+            sessionStorage.setItem('langToggleScroll', window.scrollY);
+            
+            // 2. حفظ الخطوة المفتوحة حالياً (إذا كنا في صفحة صمم دعوتك)
+            const activeStep = document.querySelector('.step-content.active');
+            if (activeStep) {
+                const stepId = activeStep.id.split('-')[1];
+                sessionStorage.setItem('activeOrderStep', stepId);
+            }
+
+            let currentPath = window.location.pathname;
+            let pageName = currentPath.split("/").pop(); 
+            if (pageName === "" || pageName === "/") { pageName = "Mirzam's_Main_page.html"; }
+            
+            // 3. التحويل للصفحة باللغة الأخرى مع الاحتفاظ بالروابط الإضافية
+            let newPage = "";
+            if (pageName.includes('_ar')) {
+                newPage = pageName.replace('_ar', '');
+            } else {
+                newPage = pageName.replace('.html', '_ar.html');
+            }
+            window.location.href = newPage + window.location.search + window.location.hash;
+        }
+
+        // 4. استرجاع البيانات عند تحميل الصفحة الجديدة
+        document.addEventListener("DOMContentLoaded", () => {
+            // تحديث نص زر اللغة (EN / AR)
+            const isArabic = window.location.pathname.includes('_ar');
+            const labelText = isArabic ? "EN" : "AR";
+            const desktopLabel = document.getElementById('langLabelDesktop');
+            const mobileLabel = document.getElementById('langLabelMobile');
+            if(desktopLabel) desktopLabel.innerText = labelText;
+            if(mobileLabel) mobileLabel.innerText = labelText;
+
+            // استرجاع الخطوة المفتوحة (خاص بصفحة صمم دعوتك)
+            const savedStep = sessionStorage.getItem('activeOrderStep');
+            if (savedStep && document.getElementById(`step-${savedStep}`)) {
+                sessionStorage.removeItem('activeOrderStep');
+                
+                // إغلاق الخطوة الأولى المفتوحة افتراضياً
+                const step1 = document.getElementById('step-1');
+                if(step1 && savedStep !== '1') {
+                    step1.classList.remove('active');
+                    const icon1 = step1.previousElementSibling?.querySelector('.fa-chevron-down');
+                    if(icon1) icon1.style.transform = 'rotate(0deg)';
+                }
+
+                // فتح الخطوة المحفوظة
+                const targetStep = document.getElementById(`step-${savedStep}`);
+                if (targetStep && savedStep !== '1') {
+                    targetStep.classList.add('active');
+                    const targetIcon = targetStep.previousElementSibling?.querySelector('.fa-chevron-down');
+                    if(targetIcon) targetIcon.style.transform = 'rotate(180deg)';
+                }
+            }
+
+            // استرجاع مكان النزول (يعمل في كل الصفحات)
+            const savedScroll = sessionStorage.getItem('langToggleScroll');
+            if (savedScroll !== null) {
+                sessionStorage.removeItem('langToggleScroll');
+                // تأخير بسيط جداً لضمان تحميل عناصر الصفحة قبل النزول
+                setTimeout(() => {
+                    window.scrollTo({ top: parseInt(savedScroll), behavior: 'instant' });
+                }, 100); 
+            }
+        });
+    </script>
+</body>
+</html>
