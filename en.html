@@ -122,10 +122,10 @@
             
             <!-- Desktop Nav Links -->
             <div class="hidden md:flex space-x-8 text-[13px] tracking-widest uppercase font-semibold items-center">
-                <a href="/en" class="text-[#c5a059] relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#c5a059]">Home</a>
-                <a href="/collection" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Collections</a>
-                <a href="/pricing" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Pricing</a>
-                <a href="/order" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Create Suite</a>
+                <a href="en.html" class="text-[#c5a059] relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#c5a059]">Home</a>
+                <a href="collection.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Collections</a>
+                <a href="pricing.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Pricing</a>
+                <a href="order.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Create Suite</a>
                 <a href="https://ig.me/m/mirzam.eg" target="_blank" class="text-[#0a1128] font-bold hover:text-[#c5a059] transition-colors duration-300">Contact Us</a>
                 
                 <div class="border-l border-[#c5a059]/30 pl-8 flex items-center space-x-6">
@@ -154,10 +154,10 @@
 
         <!-- Mobile Dropdown Menu -->
         <div id="mobileMenu" class="hidden md:hidden pt-6 pb-6 border-t border-[#c5a059]/20 mt-4 flex flex-col space-y-5 text-[14px] uppercase tracking-widest font-semibold text-center bg-[#fdfbf7]">
-            <a href="/en" class="text-[#c5a059]">Home</a>
-            <a href="/collection" class="text-[#0a1128] hover:text-[#c5a059]">Collections</a>
-            <a href="/pricing" class="text-[#0a1128] hover:text-[#c5a059]">Pricing</a>
-            <a href="/order" class="text-[#0a1128] hover:text-[#c5a059]">Create Suite</a>
+            <a href="en.html" class="text-[#c5a059]">Home</a>
+            <a href="collection.html" class="text-[#0a1128] hover:text-[#c5a059]">Collections</a>
+            <a href="pricing.html" class="text-[#0a1128] hover:text-[#c5a059]">Pricing</a>
+            <a href="order.html" class="text-[#0a1128] hover:text-[#c5a059]">Create Suite</a>
             <a href="https://ig.me/m/mirzam.eg" target="_blank" class="text-[#0a1128] hover:text-[#c5a059]">Contact Us</a>
             
             <div class="pt-5 border-t border-[#c5a059]/20 flex items-center justify-center">
@@ -540,50 +540,40 @@
     
     <!-- Language Toggle & Position Restore Logic -->
     <script>
-       function toggleLanguage() {
-        let currentPath = window.location.pathname;
-
-        // Clean trailing slash
-        if (currentPath.endsWith('/') && currentPath.length > 1) {
-            currentPath = currentPath.slice(0, -1);
-        }
-
-        // If at the root domain, default to switching to Arabic
-        if (currentPath === "" || currentPath === "/") {
-            window.location.href = "/ar";
-            return;
-        }
-
-        // Switch Logic
-        if (currentPath.endsWith('_ar') || currentPath === '/ar') {
-            // Switch from Arabic to English
-            if (currentPath === '/ar') {
-                window.location.href = "/en";
-            } else {
-                window.location.href = currentPath.replace('_ar', '');
+        function toggleLanguage() {
+            // 1. حفظ مكان النزول الحالي
+            sessionStorage.setItem('langToggleScroll', window.scrollY);
+            
+            // 2. حفظ الخطوة المفتوحة حالياً (إذا كنا في صفحة صمم دعوتك)
+            const activeStep = document.querySelector('.step-content.active');
+            if (activeStep) {
+                const stepId = activeStep.id.split('-')[1];
+                sessionStorage.setItem('activeOrderStep', stepId);
             }
-        } else {
-            // Switch from English to Arabic
-            if (currentPath === '/en') {
-                window.location.href = "/ar";
-            } else {
-                window.location.href = currentPath + '_ar';
-            }
-        }
-    }
 
-    // Auto-update button label
-    document.addEventListener("DOMContentLoaded", () => {
-        let path = window.location.pathname;
-        const isArabic = path.endsWith('_ar') || path === '/ar';
-        const labelText = isArabic ? "EN" : "AR";
-        
-        const desktopLabel = document.getElementById('langLabelDesktop');
-        const mobileLabel = document.getElementById('langLabelMobile');
-        
-        if(desktopLabel) desktopLabel.innerText = labelText;
-        if(mobileLabel) mobileLabel.innerText = labelText;
-    });
+            let currentPath = window.location.pathname;
+            let pageName = currentPath.split("/").pop(); 
+            if (pageName === "" || pageName === "/") { pageName = "Mirzam's_Main_page.html"; }
+            
+            // 3. التحويل للصفحة باللغة الأخرى مع الاحتفاظ بالروابط الإضافية
+            let newPage = "";
+            if (pageName.includes('_ar')) {
+                newPage = pageName.replace('_ar', '');
+            } else {
+                newPage = pageName.replace('.html', '_ar.html');
+            }
+            window.location.href = newPage + window.location.search + window.location.hash;
+        }
+
+        // 4. استرجاع البيانات عند تحميل الصفحة الجديدة
+        document.addEventListener("DOMContentLoaded", () => {
+            // تحديث نص زر اللغة (EN / AR)
+            const isArabic = window.location.pathname.includes('_ar');
+            const labelText = isArabic ? "EN" : "AR";
+            const desktopLabel = document.getElementById('langLabelDesktop');
+            const mobileLabel = document.getElementById('langLabelMobile');
+            if(desktopLabel) desktopLabel.innerText = labelText;
+            if(mobileLabel) mobileLabel.innerText = labelText;
 
             // استرجاع الخطوة المفتوحة (خاص بصفحة صمم دعوتك)
             const savedStep = sessionStorage.getItem('activeOrderStep');
@@ -618,7 +608,5 @@
             }
         });
     </script>
-
-    
 </body>
 </html>
