@@ -122,10 +122,10 @@
             
             <!-- Desktop Nav Links -->
             <div class="hidden md:flex space-x-8 text-[13px] tracking-widest uppercase font-semibold items-center">
-                <a href="Mirzam's_Main_page.html" class="text-[#c5a059] relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#c5a059]">Home</a>
-                <a href="collection.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Collections</a>
-                <a href="pricing.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Pricing</a>
-                <a href="order.html" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Create Suite</a>
+                <a href="/en" class="text-[#c5a059] relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#c5a059]">Home</a>
+                <a href="/collection" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Collections</a>
+                <a href="/pricing" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Pricing</a>
+                <a href="/order" class="text-[#0a1128] hover:text-[#c5a059] transition-colors duration-300">Create Suite</a>
                 <a href="https://ig.me/m/mirzam.eg" target="_blank" class="text-[#0a1128] font-bold hover:text-[#c5a059] transition-colors duration-300">Contact Us</a>
                 
                 <div class="border-l border-[#c5a059]/30 pl-8 flex items-center space-x-6">
@@ -154,10 +154,10 @@
 
         <!-- Mobile Dropdown Menu -->
         <div id="mobileMenu" class="hidden md:hidden pt-6 pb-6 border-t border-[#c5a059]/20 mt-4 flex flex-col space-y-5 text-[14px] uppercase tracking-widest font-semibold text-center bg-[#fdfbf7]">
-            <a href="Mirzam's_Main_page.html" class="text-[#c5a059]">Home</a>
-            <a href="collection.html" class="text-[#0a1128] hover:text-[#c5a059]">Collections</a>
-            <a href="pricing.html" class="text-[#0a1128] hover:text-[#c5a059]">Pricing</a>
-            <a href="order.html" class="text-[#0a1128] hover:text-[#c5a059]">Create Suite</a>
+            <a href="/en" class="text-[#c5a059]">Home</a>
+            <a href="/collection" class="text-[#0a1128] hover:text-[#c5a059]">Collections</a>
+            <a href="/pricing" class="text-[#0a1128] hover:text-[#c5a059]">Pricing</a>
+            <a href="/order" class="text-[#0a1128] hover:text-[#c5a059]">Create Suite</a>
             <a href="https://ig.me/m/mirzam.eg" target="_blank" class="text-[#0a1128] hover:text-[#c5a059]">Contact Us</a>
             
             <div class="pt-5 border-t border-[#c5a059]/20 flex items-center justify-center">
@@ -606,6 +606,60 @@
                     window.scrollTo({ top: parseInt(savedScroll), behavior: 'instant' });
                 }, 100); 
             }
+        });
+    </script>
+
+    <!-- Language Toggle Logic (Clean URLs) -->
+    <script>
+        function toggleLanguage() {
+            let currentPath = window.location.pathname;
+
+            // Clean any trailing slash for a perfect match
+            if (currentPath.endsWith('/') && currentPath.length > 1) {
+                currentPath = currentPath.slice(0, -1);
+            }
+
+            // Remove .html if someone typed it manually so the switch still works cleanly
+            let cleanPath = currentPath.replace('.html', '');
+
+            // If the user is somehow at the exact root, default switch to Arabic
+            if (cleanPath === "" || cleanPath === "/") {
+                window.location.href = "/ar";
+                return;
+            }
+
+            // --- Switch Logic ---
+            if (cleanPath.endsWith('_ar') || cleanPath === '/ar') {
+                // Switch from Arabic to English
+                if (cleanPath === '/ar') {
+                    window.location.href = "/en";
+                } else {
+                    window.location.href = cleanPath.replace('_ar', '');
+                }
+            } else {
+                // Switch from English to Arabic
+                if (cleanPath === '/en') {
+                    window.location.href = "/ar";
+                } else {
+                    window.location.href = cleanPath + '_ar';
+                }
+            }
+        }
+
+        // Auto-update button label depending on current page
+        document.addEventListener("DOMContentLoaded", () => {
+            let path = window.location.pathname;
+            // Check if it's an Arabic page
+            const isArabic = path.includes('_ar') || path.endsWith('/ar');
+            
+            // If we are on Arabic, the button should say "EN". If on English, it should say "AR".
+            const labelText = isArabic ? "EN" : "AR";
+            
+            const desktopLabel = document.getElementById('langLabelDesktop');
+            const mobileLabel = document.getElementById('langLabelMobile');
+            
+            if(desktopLabel) desktopLabel.innerText = labelText;
+            if(mobileLabel) mobileLabel.innerText = labelText;
         });
     </script>
 </body>
