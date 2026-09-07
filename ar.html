@@ -503,13 +503,13 @@
         }
     </script>
 
-   <!-- Language Toggle & Position Restore Logic -->
+  <!-- Language Toggle & Position Restore Logic -->
     <script>
         function toggleLanguage() {
-            // 1. حفظ مكان النزول الحالي
+            // 1. Save current scroll position
             sessionStorage.setItem('langToggleScroll', window.scrollY);
             
-            // 2. حفظ الخطوة المفتوحة حالياً (إذا كنا في صفحة صمم دعوتك)
+            // 2. Save active step (for the order page)
             const activeStep = document.querySelector('.step-content.active');
             if (activeStep) {
                 const stepId = activeStep.id.split('-')[1];
@@ -518,34 +518,49 @@
 
             let currentPath = window.location.pathname;
             let pageName = currentPath.split("/").pop(); 
-            if (pageName === "" || pageName === "/") { pageName = "Mirzam's_Main_page.html"; }
             
-            // 3. التحويل للصفحة باللغة الأخرى مع الاحتفاظ بالروابط الإضافية
+            // If the path is empty (root directory), assume it's the English main page
+            if (pageName === "" || pageName === "/") { pageName = "en.html"; }
+            
+            // 3. Navigate to the opposite language page
             let newPage = "";
-            if (pageName.includes('_ar')) {
+            
+            if (pageName === 'ar.html' || pageName === 'ar') {
+                // From Arabic Main to English Main
+                newPage = 'en.html';
+            } else if (pageName === 'en.html' || pageName === 'en') {
+                // From English Main to Arabic Main
+                newPage = 'ar.html';
+            } else if (pageName.includes('_ar')) {
+                // From Arabic sub-page to English sub-page (remove _ar)
                 newPage = pageName.replace('_ar', '');
             } else {
+                // From English sub-page to Arabic sub-page (add _ar)
                 newPage = pageName.replace('.html', '_ar.html');
             }
+            
             window.location.href = newPage + window.location.search + window.location.hash;
         }
 
-        // 4. استرجاع البيانات عند تحميل الصفحة الجديدة
+        // 4. Restore data on page load
         document.addEventListener("DOMContentLoaded", () => {
-            // تحديث نص زر اللغة (EN / AR)
-            const isArabic = window.location.pathname.includes('_ar');
+            // Update language button text (EN / AR)
+            const currentPath = window.location.pathname;
+            const pageName = currentPath.split("/").pop();
+            const isArabic = pageName === 'ar.html' || pageName === 'ar' || pageName.includes('_ar');
             const labelText = isArabic ? "EN" : "AR";
+            
             const desktopLabel = document.getElementById('langLabelDesktop');
             const mobileLabel = document.getElementById('langLabelMobile');
             if(desktopLabel) desktopLabel.innerText = labelText;
             if(mobileLabel) mobileLabel.innerText = labelText;
 
-            // استرجاع الخطوة المفتوحة (خاص بصفحة صمم دعوتك)
+            // Restore active step (for order page)
             const savedStep = sessionStorage.getItem('activeOrderStep');
             if (savedStep && document.getElementById(`step-${savedStep}`)) {
                 sessionStorage.removeItem('activeOrderStep');
                 
-                // إغلاق الخطوة الأولى المفتوحة افتراضياً
+                // Close default open step 1
                 const step1 = document.getElementById('step-1');
                 if(step1 && savedStep !== '1') {
                     step1.classList.remove('active');
@@ -553,7 +568,7 @@
                     if(icon1) icon1.style.transform = 'rotate(0deg)';
                 }
 
-                // فتح الخطوة المحفوظة
+                // Open saved step
                 const targetStep = document.getElementById(`step-${savedStep}`);
                 if (targetStep && savedStep !== '1') {
                     targetStep.classList.add('active');
@@ -562,11 +577,11 @@
                 }
             }
 
-            // استرجاع مكان النزول (يعمل في كل الصفحات)
+            // Restore scroll position
             const savedScroll = sessionStorage.getItem('langToggleScroll');
             if (savedScroll !== null) {
                 sessionStorage.removeItem('langToggleScroll');
-                // تأخير بسيط جداً لضمان تحميل عناصر الصفحة قبل النزول
+                // Slight delay to ensure DOM is fully rendered before scrolling
                 setTimeout(() => {
                     window.scrollTo({ top: parseInt(savedScroll), behavior: 'instant' });
                 }, 100); 
