@@ -316,41 +316,40 @@
     <!-- Language Toggle & Position Restore Logic -->
     <script>
         function toggleLanguage() {
-            // 1. Save current scroll position
-            sessionStorage.setItem('langToggleScroll', window.scrollY);
-            
-            // 2. Save active step (for the order page)
-            const activeStep = document.querySelector('.step-content.active');
-            if (activeStep) {
-                const stepId = activeStep.id.split('-')[1];
-                sessionStorage.setItem('activeOrderStep', stepId);
-            }
+    sessionStorage.setItem('langToggleScroll', window.scrollY);
+    
+    const activeStep = document.querySelector('.step-content.active');
+    if (activeStep) {
+        const stepId = activeStep.id.split('-')[1];
+        sessionStorage.setItem('activeOrderStep', stepId);
+    }
 
-            let currentPath = window.location.pathname;
-            let pageName = currentPath.split("/").pop(); 
-            
-            // If the path is empty (root directory), assume it's the English main page
-            if (pageName === "" || pageName === "/") { pageName = "en.html"; }
-            
-            // 3. Navigate to the opposite language page
-            let newPage = "";
-            
-            if (pageName === 'ar.html' || pageName === 'ar') {
-                // From Arabic Main to English Main
-                newPage = 'en.html';
-            } else if (pageName === 'en.html' || pageName === 'en') {
-                // From English Main to Arabic Main
-                newPage = 'ar.html';
-            } else if (pageName.includes('_ar')) {
-                // From Arabic sub-page to English sub-page (remove _ar)
-                newPage = pageName.replace('_ar', '');
-            } else {
-                // From English sub-page to Arabic sub-page (add _ar)
-                newPage = pageName.replace('.html', '_ar.html');
-            }
-            
-            window.location.href = newPage + window.location.search + window.location.hash;
-        }
+    let currentPath = window.location.pathname;
+    
+    // If currently on English main page (/en/ or /en)
+    if (currentPath.includes('/en')) {
+        window.location.href = '/ar/' + window.location.search + window.location.hash;
+        return;
+    }
+    
+    // If currently on Arabic main page (/ar/ or /ar)
+    if (currentPath.includes('/ar')) {
+        window.location.href = '/en/' + window.location.search + window.location.hash;
+        return;
+    }
+
+    // For subpages (collection.html <-> collection_ar.html)
+    let pageName = currentPath.split("/").pop(); 
+    let newPage = "";
+    
+    if (pageName.includes('_ar')) {
+        newPage = pageName.replace('_ar', '');
+    } else {
+        newPage = pageName.replace('.html', '_ar.html');
+    }
+    
+    window.location.href = newPage + window.location.search + window.location.hash;
+}
 
         // 4. Restore data on page load
         document.addEventListener("DOMContentLoaded", () => {
